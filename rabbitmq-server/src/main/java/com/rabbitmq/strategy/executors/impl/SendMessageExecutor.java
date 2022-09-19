@@ -8,7 +8,7 @@ public class SendMessageExecutor extends BaseExecutor {
 
     @Override
     public int getMessageType() {
-        return Operation.SEND_MESSAGE;
+        return Operation.REQ_SEND_MESSAGE;
     }
 
     @Override

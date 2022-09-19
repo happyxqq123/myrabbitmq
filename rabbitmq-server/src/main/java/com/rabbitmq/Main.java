@@ -2,11 +2,9 @@ package com.rabbitmq;
 
 
 import com.google.protobuf.Any;
-import com.google.protobuf.Message;
 import com.rabbitmq.handler.ProtoBufDecoder;
 import com.rabbitmq.handler.ProtoBufEncoder;
 import com.rabbitmq.protocol.MessageDataOuterClass;
-import com.rabbitmq.protocol.message.ConfirmOuterClass;
 import com.rabbitmq.protocol.message.SendMessageOuterClass;
 import com.rabbitmq.strategy.Operation;
 import io.netty.buffer.ByteBuf;
@@ -17,7 +15,6 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.logging.LoggingHandler;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class Main {
@@ -42,7 +39,7 @@ public class Main {
         MessageDataOuterClass.MessageData.Builder reqMessageBuilder =  MessageDataOuterClass.MessageData.newBuilder();
         reqMessageBuilder.setData(Any.pack(confirm));
         reqMessageBuilder.setReqId(2);
-        reqMessageBuilder.setOperation(Operation.SEND_MESSAGE);
+        reqMessageBuilder.setOperation(Operation.REQ_SEND_MESSAGE);
         MessageDataOuterClass.MessageData  msgData =  reqMessageBuilder.build();
         byte[] bytes =  msgData.toByteArray();
         ByteBuf byteBuf = ByteBufAllocator.DEFAULT.buffer();

@@ -8,7 +8,7 @@ public class TopicDataExecutor extends BaseExecutor {
 
     @Override
     public int getMessageType() {
-        return Operation.TOPIC_DATA;
+        return Operation.REQ_TOPIC_DATA;
     }
 
     @Override
