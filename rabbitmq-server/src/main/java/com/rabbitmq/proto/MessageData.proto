@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "com.rabbitmq.protocol";
+
+import "google/protobuf/any.proto";
+
+message MessageData{
+
+  int32 operation = 1;
+  google.protobuf.Any data = 2;
+  int32 reqId = 3;
+}

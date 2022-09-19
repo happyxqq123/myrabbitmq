@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+option java_package = "com.rabbitmq.protocol.message";
+
+message Confirm{
+  int32 offset =1;
+  int32 queueiD =2;
+}

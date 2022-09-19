@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.rabbitmq.protocol.message";
+
+message SyncOffsetMessage{
+  string consumer = 1;
+  string topic = 2;
+  map<int32,int64> offsetMap = 3;
+}

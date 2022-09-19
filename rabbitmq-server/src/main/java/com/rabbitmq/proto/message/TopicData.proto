@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "com.rabbitmq.protocol.message";
+
+message TopicData{
+  string consumerKey = 1;
+  string consumerGroup = 2;
+  string topic = 3;
+
+}

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "com.rabbitmq.protocol.message";
+
+message MessageQueueData{
+  string topic = 1;
+  string consumerKey = 2;
+  string queueSize = 3;
+  map<int32,int64> offsetMap = 4;
+}

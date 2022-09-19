@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "com.rabbitmq.protocol.message";
+import public "message/PullMessage.proto";
+
+message PullMessageResp{
+  repeated PullMessage pullMessage = 1;
+  string topic = 2;
+  string consumerGroup = 3;
+  int32  queueId = 4;
+  int64 lastIndex = 5;
+}

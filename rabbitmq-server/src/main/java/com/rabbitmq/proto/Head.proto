@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "com.rabbitmq.protocol";
+
+message Head{
+  MessageEnum msgType = 1;
+}
+
+enum MessageEnum{
+  Req = 0;
+  Resp = 1;
+}

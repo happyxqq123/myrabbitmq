@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option java_package = "com.rabbitmq.protocol.message";
+
+
+message PullMessage{
+  string msgId = 1;
+  string topic = 2;
+  string tag = 3;
+  string key = 4;
+  string body = 5;
+  string index = 6;
+}
