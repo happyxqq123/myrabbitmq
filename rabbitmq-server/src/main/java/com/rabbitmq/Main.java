@@ -1,11 +1,13 @@
 package com.rabbitmq;
 
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.protobuf.Any;
 import com.rabbitmq.handler.ProtoBufDecoder;
 import com.rabbitmq.handler.ProtoBufEncoder;
 import com.rabbitmq.protocol.MessageDataOuterClass;
 import com.rabbitmq.protocol.message.SendMessageOuterClass;
+import com.rabbitmq.server.Service;
 import com.rabbitmq.strategy.Operation;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
@@ -14,12 +16,14 @@ import io.netty.channel.embedded.EmbeddedChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.logging.LoggingHandler;
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 
 import java.io.IOException;
+import java.util.concurrent.ThreadFactory;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main1(String[] args) throws IOException {
         EmbeddedChannel embeddedChannel = new EmbeddedChannel();
         ChannelPipeline channelPipeline = embeddedChannel.pipeline();
         channelPipeline.addLast(new LoggingHandler());
@@ -46,5 +50,25 @@ public class Main {
         byteBuf.writeInt(bytes.length);
         byteBuf.writeBytes(bytes);
         embeddedChannel.writeInbound(byteBuf);
+    }
+
+    public static void main(String[] args) {
+        ThreadFactory guavaThreadFactory = new ThreadFactoryBuilder().setNameFormat("retryClient-pool-%d").build();
+        guavaThreadFactory.newThread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName());
+            }
+        }).start();
+
+        ThreadFactory basicThreadFactory = new BasicThreadFactory.Builder().namingPattern("MessageEventProcessor-%d").build();
+        basicThreadFactory.newThread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName());
+
+            }
+        }).start();
+
     }
 }
